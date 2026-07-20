@@ -8,7 +8,7 @@ const router = Router();
 
 // Chiunque può inviare una richiesta (anche guest)
 router.post("/", optionalAuth, validate(requestSchema), ctrl.create);
-
+router.get("/me", authMiddleware, ctrl.getMyRequests);
 // Admin: vedi e gestisci richieste
 router.get("/", authMiddleware, adminMiddleware, ctrl.list);
 router.patch("/:id", authMiddleware, adminMiddleware, ctrl.updateStatus);

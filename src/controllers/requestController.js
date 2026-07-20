@@ -31,7 +31,15 @@ export const create = async (req, res) => {
   });
   res.status(201).json(doc);
 };
-
+// Recupera solo gli ordini dell'utente loggato
+export const getMyRequests = async (req, res) => {
+  try {
+    const list = await Request.find({ user: req.user._id }).sort({ createdAt: -1 });
+    res.json(list);
+  } catch (error) {
+    res.status(500).json({ message: "Errore nel recupero ordini" });
+  }
+};
 // GET /api/requests  (admin)
 export const list = async (req, res) => {
   const { status } = req.query;
